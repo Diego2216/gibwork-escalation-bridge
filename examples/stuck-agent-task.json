@@ -1,0 +1,19 @@
+{
+  "id": "demo-parser-001",
+  "sourceAgent": "backend-agent-07",
+  "projectRef": "demo/local-tooling",
+  "title": "Implement a deterministic parser for build log failure groups",
+  "problem": "The primary coding agent is blocked on a log parser edge case. Build a small Node.js parser that groups compiler errors by file and returns deterministic JSON. No production access is required.",
+  "acceptanceCriteria": [
+    "Parses TypeScript compiler error lines into file, line, column and message fields",
+    "Groups errors deterministically by file path",
+    "Includes tests for malformed lines and Windows paths"
+  ],
+  "allowedFiles": ["src/log-parser.mjs", "tests/log-parser.test.mjs"],
+  "estimatedInternalMinutes": 95,
+  "maxBudgetUsdc": 25,
+  "minimumPayoutUsdc": 5,
+  "deadlineHours": 24,
+  "allowExternalDelegation": true,
+  "tags": ["Development", "Node.js", "Automation", "AI Agents"]
+}

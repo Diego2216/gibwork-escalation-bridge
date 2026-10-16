@@ -1,0 +1,103 @@
+
+> gibwork-escalation-bridge@0.1.0 demo
+> node demo/run-demo.mjs
+
+
+$ node src/cli.mjs assess /mnt/data/gibwork-escalation-bridge/examples/stuck-agent-task.json
+{
+  "decision": "DELEGATE_DRAFT",
+  "score": 100,
+  "scores": {
+    "clarity": 100,
+    "privacy": 100,
+    "economics": 100
+  },
+  "blockers": [],
+  "warnings": [],
+  "findings": [],
+  "sanitizedTask": {
+    "id": "demo-parser-001",
+    "sourceAgent": "backend-agent-07",
+    "projectRef": "demo/local-tooling",
+    "title": "Implement a deterministic parser for build log failure groups",
+    "problem": "The primary coding agent is blocked on a log parser edge case. Build a small Node.js parser that groups compiler errors by file and returns deterministic JSON. No production access is required.",
+    "acceptanceCriteria": [
+      "Parses TypeScript compiler error lines into file, line, column and message fields",
+      "Groups errors deterministically by file path",
+      "Includes tests for malformed lines and Windows paths"
+    ],
+    "allowedFiles": [
+      "src/log-parser.mjs",
+      "tests/log-parser.test.mjs"
+    ],
+    "estimatedInternalMinutes": 95,
+    "maxBudgetUsdc": 25,
+    "minimumPayoutUsdc": 5,
+    "deadlineHours": 24,
+    "allowExternalDelegation": true,
+    "tags": [
+      "Development",
+      "Node.js",
+      "Automation",
+      "AI Agents"
+    ]
+  }
+}
+
+$ node src/cli.mjs draft /mnt/data/gibwork-escalation-bridge/examples/stuck-agent-task.json --out /mnt/data/gibwork-escalation-bridge/artifacts
+{
+  "decision": "DELEGATE_DRAFT",
+  "score": 100,
+  "workOrderPath": "/mnt/data/gibwork-escalation-bridge/artifacts/work-order.json",
+  "gibworkPath": "/mnt/data/gibwork-escalation-bridge/artifacts/gibwork-task.json",
+  "receiptPath": "/mnt/data/gibwork-escalation-bridge/artifacts/delegation-receipt.json"
+}
+
+$ node src/cli.mjs verify /mnt/data/gibwork-escalation-bridge/artifacts/work-order.json /mnt/data/gibwork-escalation-bridge/examples/submission-evidence.json --out /mnt/data/gibwork-escalation-bridge/artifacts/verification.json
+{
+  "schema": "gibwork.escalation.verification.v1",
+  "status": "READY_TO_REVIEW",
+  "missing": [],
+  "unmetCriteria": [],
+  "sha256": "3ab177d8724696aca5d2fe27c556b7f3ee3a5125937b7d9a0124ccefdd440484",
+  "event": "EXTERNAL_WORK_READY_FOR_AGENT_REVIEW"
+}
+
+$ node src/cli.mjs assess /mnt/data/gibwork-escalation-bridge/examples/unsafe-task.json
+{
+  "decision": "BLOCK",
+  "score": 46,
+  "scores": {
+    "clarity": 55,
+    "privacy": 0,
+    "economics": 95
+  },
+  "blockers": [
+    "SECRET_MATERIAL_DETECTED"
+  ],
+  "warnings": [],
+  "findings": [
+    {
+      "type": "api_key",
+      "severity": "BLOCK",
+      "sample": "tok…123"
+    },
+    {
+      "type": "windows_home",
+      "severity": "REDACT",
+      "sample": "C:\\…ego"
+    }
+  ],
+  "sanitizedTask": {
+    "title": "Debug production auth",
+    "problem": "Use [REDACTED:API_KEY] and inspect [REDACTED:WINDOWS_HOME]\\project\\.env",
+    "acceptanceCriteria": [
+      "Fix authentication"
+    ],
+    "estimatedInternalMinutes": 90,
+    "maxBudgetUsdc": 30,
+    "allowExternalDelegation": true
+  }
+}
+
+Demo complete. No wallet, funds or production systems were touched.

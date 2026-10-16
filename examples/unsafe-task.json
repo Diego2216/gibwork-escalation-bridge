@@ -1,0 +1,8 @@
+{
+  "title": "Debug production auth",
+  "problem": "Use api_key=DEMO_NOT_A_REAL_SECRET and inspect C:\\Users\\ExampleUser\\project\\.env",
+  "acceptanceCriteria": ["Fix authentication"],
+  "estimatedInternalMinutes": 90,
+  "maxBudgetUsdc": 30,
+  "allowExternalDelegation": true
+}

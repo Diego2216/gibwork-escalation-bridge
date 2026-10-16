@@ -1,0 +1,7 @@
+{
+  "repositoryUrl": "https://github.com/example/contributor-solution",
+  "commit": "4a87d1b",
+  "summary": "Implemented the parser with deterministic grouping and malformed-line handling.",
+  "tests": ["node --test tests/log-parser.test.mjs: PASS"],
+  "criteriaSatisfied": [1, 2, 3]
+}
