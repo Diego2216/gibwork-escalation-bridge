@@ -23,7 +23,7 @@ BLOCK / KEEP_LOCAL / DELEGATE_DRAFT
       ↓
 Minimal work order
       ↓
-Gibwork CLI adapter
+Official Gibwork CLI
       ↓
 Human / external contributor
       ↓
@@ -38,19 +38,21 @@ Result returns to parent agent
 - privacy firewall with fail-closed handling of secret-bearing context;
 - economic gate based on estimated internal time and maximum delegation budget;
 - minimal-context work order generation;
-- Gibwork CLI integration adapter;
-- dry-run by default and explicit production gate;
+- official Gibwork CLI integration adapter;
+- stage-first execution and explicit production gate;
 - SHA-256 audit receipt;
 - evidence verification against declared acceptance criteria;
 - runnable CLI, demo, tests and JSON schemas.
 
 ## Quick start
 
-Requires Node.js 20+.
+Requires **Node.js 22+**, matching the official Gibwork CLI requirement.
 
 ```bash
+npm install --global @gibwork/cli@latest
 npm test
 npm run demo
+node src/cli.mjs doctor
 ```
 
 Evaluate a task:
@@ -62,7 +64,7 @@ node src/cli.mjs assess examples/stuck-agent-task.json
 Build a delegation draft:
 
 ```bash
-node src/cli.mjs draft examples/stuck-agent-task.json
+node src/cli.mjs draft examples/stuck-agent-task.json --out artifacts
 ```
 
 Try an unsafe task:
@@ -75,15 +77,17 @@ The unsafe example must fail closed.
 
 ## Gibwork integration
 
-The adapter targets the official Gibwork CLI package:
+The adapter targets the official `@gibwork/cli` package and its supported JSON task creation flow:
 
 ```bash
-npx @gibwork/cli@latest --help
+gibwork task create --from task.json
 ```
 
-By design, this repository does **not** ship private keys, wallet secrets, API tokens, production credentials, or a live bounty-creation command with hidden authorization.
+The bridge intentionally leaves wallet authentication, quotes, confirmation and Solana transaction signing inside Gibwork's supported local tooling.
 
-The bridge prepares a validated work order first. Production execution must be explicitly enabled and authenticated in the operator's own environment.
+By design, this repository does **not** ship private keys, wallet secrets, API tokens or production credentials.
+
+The bridge prepares a validated work order first. Production execution remains fail-closed until explicitly enabled in the operator's own environment.
 
 ## Safety model
 
@@ -108,7 +112,7 @@ A task containing risky context is blocked before work-order generation.
   "score": 84,
   "maxBudgetUsdc": 25,
   "privacy": "SANITIZED",
-  "execution": "DRY_RUN"
+  "execution": "STAGE_FIRST"
 }
 ```
 
@@ -136,6 +140,8 @@ docs/              architecture, demo and submission notes
 Prototype for the Gibwork Developer Hackathon Bounty.
 
 It is intentionally **non-web-app-first**: the core experience is CLI / agent workflow automation.
+
+Public repository: https://github.com/Diego2216/gibwork-escalation-bridge
 
 ## License
 
