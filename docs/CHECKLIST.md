@@ -10,8 +10,8 @@
 - [x] Architecture documentation
 - [x] Prepared submission copy
 - [x] MIT license
-- [ ] Public GitHub repository created
-- [ ] Package copied to public repository
-- [ ] Public repository URL inserted into Gibwork submission
+- [x] Public GitHub repository created
+- [x] Package copied to public repository
+- [x] Public repository URL ready for Gibwork submission
 - [ ] Optional 60–90 second demo video recorded
 - [ ] Final Gibwork submission reviewed and sent
