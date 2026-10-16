@@ -1,0 +1,16 @@
+{
+  "name": "gibwork-escalation-bridge",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Privacy-first CLI that lets AI coding agents safely escalate bounded work to Gibwork contributors.",
+  "engines": {"node": ">=22"},
+  "bin": {"gib-escalate": "./src/cli.mjs"},
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "demo": "node demo/run-demo.mjs",
+    "doctor": "node src/cli.mjs doctor"
+  },
+  "license": "MIT",
+  "keywords": ["gibwork", "cli", "ai-agents", "delegation", "privacy", "solana", "bounties"]
+}
